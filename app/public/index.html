@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+
+<head>
+  <meta charset="utf-8">
+  <title>Reddit Clone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!-- Include Bootstrap & jQuery -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!-- Include Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js" defer></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js" defer></script>
+  <!-- Include Angular's Moment & Ui-Router Modules -->
+  <script src="/moment/moment.js" defer></script>
+  <script src="/angular-moment/angular-moment.js" defer></script>
+  <script src="/angular-ui-router/release/angular-ui-router.min.js" defer></script>
+  <!-- Bring in Scripts for Components & Modules -->
+  <script src="js/app/app.module.js" defer></script>
+  <script src="js/app/app.config.js" defer></script>
+  <script src="js/posts/post-list.component.js" defer></script>
+  <script src="js/posts/edit-post.component.js" defer></script>
+  <!-- Custom Stylings -->
+  <link rel="stylesheet" href="css/app.css">
+  <!-- For Ui-Router -->
+  <base href="/">
+</head>
+
+<body>
+
+  <!-- Web Components: Ui-View from UI-Router -->
+  <ui-view></ui-view>
+</body>
+
+</html>

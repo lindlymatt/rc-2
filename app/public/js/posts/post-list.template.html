@@ -1,0 +1,118 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ui-sref="app.posts">Reddit Clone</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div class="pull-right">
+    <p><a ng-click="$ctrl.showHideForm()" class="btn btn-info">New Post</a></p>
+  </div>
+
+  <ul class="nav nav-pills">
+    <li role="presentation" class="active">
+      <input type="search" class="form-control input-sm search-form" placeholder="Filter" ng-model="search">
+    </li>
+    <li class="dropdown" ng-init="sort='-vote_count'; sortName='Votes'">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By {{sortName}}<span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a ng-click="sort='-vote_count'; sortName='Votes';">Votes</a></li>
+        <li><a ng-click="sort='created_at'; sortName='Date';">Date</a></li>
+        <li><a ng-click="sort='title'; sortName='Title'">Title</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="row" ng-if="$ctrl.postCreation">
+    <div class="col-md-8">
+
+      <form name="form" novalidate ng-submit="$ctrl.createPost()">
+        <div ng-class="{'form-group': true, 'has-error': form.title.$invalid && form.title.$touched }">
+          <label for="title">Title</label>
+          <input class="form-control" name="title" required ng-model="$ctrl.post.title">
+        </div>
+        <div ng-class="{'form-group': true, 'has-error': form.body.$invalid && form.body.$touched }">
+          <label>Body</label>
+          <textarea class="form-control" name="body" required ng-model="$ctrl.post.body"></textarea>
+        </div>
+        <div ng-class="{'form-group': true, 'has-error': form.author.$invalid && form.author.$touched }">
+          <label>Author</label>
+          <input class="form-control" name="author" required ng-model="$ctrl.post.author">
+        </div>
+        <div ng-class="{'form-group': true, 'has-error': form.image_url.$invalid && form.image_url.$touched }">
+          <label>Image URL</label>
+          <input class="form-control" name="image_url" required ng-model="$ctrl.post.image_url">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+            Create Post
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div ng-repeat="post in $ctrl.posts | filter:search | orderBy:sort" class="well">
+        <div class="media-left" style="text-align: center">
+          <img ng-src="{{post.image_url}}" class="media-object">
+          <a ui-sref="edit({postId: post.id})">edit</a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">
+            {{post.title}}
+            |
+            <a ng-click="$ctrl.votePostUp(post)"><i class="glyphicon glyphicon-arrow-up"></i></a>
+            <a ng-click="$ctrl.votePostDown(post)"><i class="glyphicon glyphicon-arrow-down"></i></a>
+            {{post.vote_count}}
+          </h4>
+          <div class="text-right">
+            {{post.author}}
+          </div>
+          <p>
+            {{post.body}}
+          </p>
+          <div>
+            <span am-time-ago="post.created_at"></span> |
+            <i class="glyphicon glyphicon-comment"></i>
+            <a ng-click="showComments=!showComments">
+              {{post.comments.length}} Comment<span ng-if="post.comments.length !== 1">s</span>
+            </a>
+          </div>
+          <div ng-if="showComments" class="row">
+            <div class="col-md-offset-1">
+              <hr>
+              <p ng-repeat="comment in post.comments">
+                {{comment.content}}
+              </p>
+              <form ng-submit="$ctrl.createPostComment(post)" class="form-inline">
+                <div class="form-group">
+                  <input ng-model="post.comment.content" class="form-control">
+                </div>
+                <div class="form-group">
+                  <input type="submit" class="btn btn-primary">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>

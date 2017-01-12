@@ -1,0 +1,48 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ui-sref="app.posts">Reddit Clone</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <!-- <h1> POST NAME </h1> -->
+      <form name="form" novalidate ng-submit="$ctrl.submitEditedPost()">
+        <div ng-class="{'form-group': true, 'has-error': form.title.$invalid && form.title.$touched }">
+          <label for="title">Title</label>
+          <input class="form-control" name="title" required ng-model="$ctrl.post.title">
+        </div>
+        <div ng-class="{'form-group': true, 'has-error': form.body.$invalid && form.body.$touched }">
+          <label>Body</label>
+          <textarea class="form-control" name="body" required ng-model="$ctrl.post.body"></textarea>
+        </div>
+        <div ng-class="{'form-group': true, 'has-error': form.author.$invalid && form.author.$touched }">
+          <label>Author</label>
+          <input class="form-control" name="author" required ng-model="$ctrl.post.author">
+        </div>
+        <div ng-class="{'form-group': true, 'has-error': form.image_url.$invalid && form.image_url.$touched }">
+          <label>Image URL</label>
+          <input class="form-control" name="image_url" required ng-model="$ctrl.post.image_url">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">
+            Update Post
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</main>
